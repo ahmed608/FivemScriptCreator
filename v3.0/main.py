@@ -65,12 +65,12 @@ def show_loading_screen():
     new_win()
 
 def new_win():
-    global window, toggle_button, buttonstanlone, buttonesx, buttonqb, top_right_label, firstname
+    global window, toggle_button, buttonstanlone, buttonesx, buttonqb,buttonrp, top_right_label, firstname
     window = Tk() 
     window.title("Fivem Script Creator")
     window.iconbitmap("images\\egypt_studio_logo.ico")
 
-    global standlone_imagelight, standlone_imagedark, qblight, qbdark, esxwhite, esxdark, light_image, dark_image
+    global standlone_imagelight, standlone_imagedark, qblight, qbdark, esxwhite, esxdark, rpdark,rpwhite, light_image, dark_image
 
    
     standlone_imagelight =  PhotoImage(file="images\\standlonelight.png")
@@ -79,6 +79,8 @@ def new_win():
     qbdark = PhotoImage(file="images\\qbdark.png")
     esxwhite = PhotoImage(file="images\\esxwhite.png")
     esxdark = PhotoImage(file="images\\esxdark.png")
+    rpdark = PhotoImage(file="images\\rpdark.png")
+    rpwhite = PhotoImage(file="images\\rpwhite.png")
     light_image = PhotoImage(file="images\\light.png")
     dark_image = PhotoImage(file="images\\dark.png")
 
@@ -120,6 +122,9 @@ def new_win():
     buttonqb = Button(window, command=lambda: create_fivem_script('qb'), image=qbdark, bd=0, width=214, height=98, highlightthickness=0, takefocus=False, relief=FLAT, overrelief=FLAT)
     buttonqb.place(x=300, y=510)
 
+    buttonrp = Button(window, command=lambda: create_fivem_script('vRP'), image=rpdark, bd=0, width=214, height=98, highlightthickness=0, takefocus=False, relief=FLAT, overrelief=FLAT)
+    buttonrp.place(x=300, y=620)
+
     toggle_button = Button(window, command=toggle_dark_theme, image=dark_image, bd=-5, width=100, height=50, highlightthickness=0, takefocus=False, relief=FLAT, overrelief=FLAT)
     toggle_button.place(relx=1.0, anchor='ne', x=-50, y=50)
 
@@ -140,7 +145,7 @@ def new_win():
     docs_menu.add_command(label="youtube", command=lambda: webbrowser.open("https://www.youtube.com/watch?v=sK6Caa2QEZQ"))
     docs_menu.add_command(label="esx doc", command=lambda: webbrowser.open("https://documentation.esx-framework.org/"))
     docs_menu.add_command(label="qb doc", command=lambda: webbrowser.open("https://docs.qbcore.org/qbcore-documentation/"))
-
+    docs_menu.add_command(label="vRP doc", command=lambda: webbrowser.open("https://jamesuk.gitbook.io/fivem-guides/dunko-vrp/docs"))
     tools_menu = Menu(menubar, tearoff=0)
     menubar.add_cascade(label="Tools", menu=tools_menu)
     tools_menu.add_command(label="Convert (esx | qb)", command=lambda: open_tools_page(window, is_dark_theme))
@@ -203,6 +208,13 @@ def create_fivem_script(script_type):
     elif script_type == 'qb':
         client_content = 'local QBCore = exports["qb-core"]:GetCoreObject()'
         server_content = 'local QBCore = exports["qb-core"]:GetCoreObject()'
+    elif script_type == 'vRP':
+        client_content = '-- write client code here'
+        server_content = '''local Tunnel = module("vrp", "lib/Tunnel")
+local Proxy = module("vrp", "lib/Proxy")
+vRP = Proxy.getInterface("vRP")
+vRPclient = Tunnel.getInterface("vRP", GetCurrentResourceName())
+'''
 
     create_lua_file('client.lua', client_content)
     create_lua_file('server.lua', server_content)
@@ -218,7 +230,7 @@ def toggle_dark_theme():
     update_theme()
 
 def update_theme():
-    global toggle_button, buttonstanlone, buttonesx, buttonqb, top_right_label, window
+    global toggle_button, buttonstanlone, buttonesx, buttonqb,buttonrp, top_right_label, window
     if is_dark_theme:
         window.configure(bg='black')
 
@@ -228,6 +240,7 @@ def update_theme():
         buttonstanlone.config(bg='black', fg='white', activebackground='black', image=standlone_imagedark)
         buttonesx.config(bg='black', fg='white', activebackground='black', image=esxdark)
         buttonqb.config(bg='black', fg='white', activebackground='black', image=qbdark)
+        buttonrp.config(bg='black', fg='white', activebackground='black', image=rpdark)
     else:
         window.configure(bg='white')
 
@@ -236,6 +249,7 @@ def update_theme():
         buttonstanlone.config(bg='white', fg='white', activebackground='white', image=standlone_imagelight)
         buttonesx.config(bg='white', fg='white', activebackground='white', image=esxwhite)
         buttonqb.config(bg='white', fg='white', activebackground='white', image=qblight)
+        buttonrp.config(bg='white', fg='white', activebackground='white', image=rpwhite)
 
 if __name__ == "__main__":
     show_loading_screen()
