@@ -17,7 +17,7 @@
 
 
 ### Video v3.0
-[soon]
+[soon](https://youtu.be/I9lIwIxyOoc) | [مشاهدة الفيديو](https://youtu.be/I9lIwIxyOoc) 
 
 ---
 
