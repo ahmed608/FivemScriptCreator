@@ -5,6 +5,7 @@ from pygments.lexers import LuaLexer
 from pygments.styles import get_style_by_name
 from helpers import convert_code, load_replacements
 
+
 def open_tools_page(parent_window, is_dark_theme):
     def go_back():
         tools_window.destroy()
@@ -63,7 +64,7 @@ def open_tools_page(parent_window, is_dark_theme):
     code_text.bind('<KeyRelease>', update_line_numbers)
     code_text.bind('<MouseWheel>', on_text_scroll)
     code_text.bind('<Button-1>', update_line_numbers)
-
+    
     converted_frame = Frame(tools_window)
     converted_frame.pack(side=RIGHT, fill=BOTH, expand=True, padx=10, pady=10)
 
@@ -99,13 +100,7 @@ def open_tools_page(parent_window, is_dark_theme):
         except TclError:
             pass
 
-    # Remove keyboard shortcuts bindings
-    # tools_window.bind('<Control-c>', copy)
-    # tools_window.bind('<Control-C>', copy)
-    # tools_window.bind('<Control-v>', paste)
-    # tools_window.bind('<Control-V>', paste)
-    # tools_window.bind('<Control-x>', cut)
-    # tools_window.bind('<Control-X>', cut)
+
 
     convert_button = Button(tools_window, text="Convert", command=convert, bg=bg_color, fg=fg_color)
     convert_button.pack(pady=20)
@@ -118,7 +113,3 @@ def open_tools_page(parent_window, is_dark_theme):
 
     update_line_numbers()
 
-if __name__ == "__main__":
-    root = Tk()
-    open_tools_page(root, is_dark_theme=True)
-    root.mainloop()
