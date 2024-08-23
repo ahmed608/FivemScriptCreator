@@ -84,12 +84,6 @@ def open_tools_page(parent_window, is_dark_theme):
         converted_text.insert("1.0", converted_code)
         converted_text.config(state=DISABLED)
 
-    def select_all(event=None):
-        code_text.tag_add(SEL, "1.0", END)
-        code_text.mark_set(INSERT, "1.0")
-        code_text.see(INSERT)
-        return 'break'
-
     def copy(event=None):
         try:
             tools_window.clipboard_clear()
@@ -98,34 +92,33 @@ def open_tools_page(parent_window, is_dark_theme):
         except TclError:
             pass
 
-    def paste(event=None):
+    def paste():
         try:
             clipboard_text = tools_window.clipboard_get().strip()
             code_text.insert(INSERT, clipboard_text)
         except TclError:
             pass
 
-    def cut(event=None):
-        try:
-            copy()
-            code_text.delete(SEL_FIRST, SEL_LAST)
-        except TclError:
-            pass
-
-    tools_window.bind('<Control-c>', copy)
-    tools_window.bind('<Control-C>', copy)
-    tools_window.bind('<Control-v>', paste)
-    tools_window.bind('<Control-V>', paste)
-    tools_window.bind('<Control-x>', cut)
-    tools_window.bind('<Control-X>', cut)
+    # Remove keyboard shortcuts bindings
+    # tools_window.bind('<Control-c>', copy)
+    # tools_window.bind('<Control-C>', copy)
+    # tools_window.bind('<Control-v>', paste)
+    # tools_window.bind('<Control-V>', paste)
+    # tools_window.bind('<Control-x>', cut)
+    # tools_window.bind('<Control-X>', cut)
 
     convert_button = Button(tools_window, text="Convert", command=convert, bg=bg_color, fg=fg_color)
     convert_button.pack(pady=20)
 
-    copy_button = Button(tools_window, text="Copy Converted Code", command=copy_converted_code, bg=bg_color, fg=fg_color)
-    copy_button.pack(pady=10)
+    copy_converted_code_button = Button(tools_window, text="Copy Converted Code", command=copy_converted_code, bg=bg_color, fg=fg_color)
+    copy_converted_code_button.pack(pady=10)
 
     back_button = Button(tools_window, text="Back to Main Page", command=go_back, bg=bg_color, fg=fg_color)
     back_button.pack()
 
     update_line_numbers()
+
+if __name__ == "__main__":
+    root = Tk()
+    open_tools_page(root, is_dark_theme=True)
+    root.mainloop()
