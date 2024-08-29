@@ -3,7 +3,7 @@ from tkinter import messagebox
 from pygments import lex
 from pygments.lexers import LuaLexer
 from pygments.styles import get_style_by_name
-from helpers import convert_code, load_replacements, load_replacements_test
+from helpers import convert_code, load_replacements, load_replacements_test, load_replacements_test2
 
 
 def open_tools_page(parent_window, is_dark_theme, freamework):
@@ -89,6 +89,14 @@ def open_tools_page(parent_window, is_dark_theme, freamework):
             original_code = code_text.get("1.0", END).strip()  
             replacements_Test = load_replacements_test()
             converted_code = convert_code(original_code, replacements_Test)
+            converted_text.config(state=NORMAL)
+            converted_text.delete("1.0", END)
+            converted_text.insert("1.0", converted_code)
+            converted_text.config(state=DISABLED)
+        elif freamework == "vRP_Qb":
+            original_code = code_text.get("1.0", END).strip()  
+            replacements_Test2 = load_replacements_test2()
+            converted_code = convert_code(original_code, replacements_Test2)
             converted_text.config(state=NORMAL)
             converted_text.delete("1.0", END)
             converted_text.insert("1.0", converted_code)
