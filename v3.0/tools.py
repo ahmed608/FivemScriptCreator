@@ -3,10 +3,10 @@ from tkinter import messagebox
 from pygments import lex
 from pygments.lexers import LuaLexer
 from pygments.styles import get_style_by_name
-from helpers import convert_code, load_replacements
+from helpers import convert_code, load_replacements, load_replacements_test
 
 
-def open_tools_page(parent_window, is_dark_theme):
+def open_tools_page(parent_window, is_dark_theme, freamework):
     def go_back():
         tools_window.destroy()
         parent_window.deiconify()
@@ -77,13 +77,23 @@ def open_tools_page(parent_window, is_dark_theme):
     converted_text.config(state=DISABLED)
 
     def convert():
-        original_code = code_text.get("1.0", END).strip()  
-        replacements = load_replacements()
-        converted_code = convert_code(original_code, replacements)
-        converted_text.config(state=NORMAL)
-        converted_text.delete("1.0", END)
-        converted_text.insert("1.0", converted_code)
-        converted_text.config(state=DISABLED)
+        if freamework == "esx":
+            original_code = code_text.get("1.0", END).strip()  
+            replacements = load_replacements()
+            converted_code = convert_code(original_code, replacements)
+            converted_text.config(state=NORMAL)
+            converted_text.delete("1.0", END)
+            converted_text.insert("1.0", converted_code)
+            converted_text.config(state=DISABLED)
+        elif freamework == "vRP":
+            original_code = code_text.get("1.0", END).strip()  
+            replacements_Test = load_replacements_test()
+            converted_code = convert_code(original_code, replacements_Test)
+            converted_text.config(state=NORMAL)
+            converted_text.delete("1.0", END)
+            converted_text.insert("1.0", converted_code)
+            converted_text.config(state=DISABLED)
+        
 
     def copy(event=None):
         try:
@@ -112,4 +122,3 @@ def open_tools_page(parent_window, is_dark_theme):
     back_button.pack()
 
     update_line_numbers()
-

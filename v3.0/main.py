@@ -148,7 +148,12 @@ def new_win():
     docs_menu.add_command(label="vRP doc", command=lambda: webbrowser.open("https://jamesuk.gitbook.io/fivem-guides/dunko-vrp/docs"))
     tools_menu = Menu(menubar, tearoff=0)
     menubar.add_cascade(label="Tools", menu=tools_menu)
-    tools_menu.add_command(label="Convert (esx | qb)", command=lambda: open_tools_page(window, is_dark_theme))
+    tools_menu.add_command(label="Convert (esx | qb)", command=lambda: open_tools_page(window, is_dark_theme, "esx"))
+    
+    tools_menu.add_command(label="Convert (esx | vRP)", command=lambda: open_tools_page(window, is_dark_theme, "vRP"))
+    #tools_menu2 = Menu(menubar, tearoff=0)
+    #menubar.add_cascade(label="Tools", menu=tools_menu2)
+    #tools_menu2.add_command(label="Convert (esx | vRP)", command=lambda: open_tools_page(window, is_dark_theme))
 
     style = ttk.Style()
     style.configure("Dark.TButton", foreground="white", background="black")
